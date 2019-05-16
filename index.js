@@ -1,5 +1,10 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
+const books = require('./books');
+
+console.log(books);
+console.log(books.getAll());
+
 
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/public/home.html');
