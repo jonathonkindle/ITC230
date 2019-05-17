@@ -6,11 +6,10 @@ var books = [
     {title: 'Learning Python: 5th Edition', author: 'Mark Lutz', price: 21.96}
 ];
 
-module.exports = (book) => {
-
-    book.getAll (){
+module.exports = {
+    getAll: () => {
         return books
-    };
+    }
 };
 
 
