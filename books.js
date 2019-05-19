@@ -9,7 +9,15 @@ var books = [
 module.exports = {
     getAll: () => {
         return books
-    }
+    },
+
+    get: (title) => {
+        return books.find((item) => {
+            return item.title === title;
+        });
+    },
+
+    
 };
 
 
