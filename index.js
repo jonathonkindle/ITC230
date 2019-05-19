@@ -18,6 +18,15 @@ app.get('/contact', function(req, res){
     res.sendFile(__dirname + '/public/contact.html');
 });
 
+app.get('/search', function(req, res){
+    res.sendFile(__dirname + '/public/search.html');
+});
+
+//still need to update the get and delete calls with correct methods and code
+// app.get('/delete', function(req, res){
+//     res.sendFile(__dirname + );
+// });
+
 app.listen(3000);
 
 

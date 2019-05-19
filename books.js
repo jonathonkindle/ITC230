@@ -17,7 +17,11 @@ module.exports = {
         });
     },
 
-    
+    delete: () => {
+        
+    }
+
+
 };
 
 
