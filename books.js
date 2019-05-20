@@ -18,11 +18,18 @@ module.exports = {
     },
 
     delete: () => {
-        
+
     }
 
 
 };
+
+
+// potential solution for finding one item in array
+// var found = books.find(function(book) {
+//     return book.title === 'book';
+// });
+// console.log(found);
 
 
 //ES6 Syntax
