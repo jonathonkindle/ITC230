@@ -23,6 +23,23 @@ app.get('/get', function(req, res){
     };
 });
 
+app.get('/getAll', function(req, res){
+    let found = books.getAll()
+    if(found){
+        res.send(JSON.stringify(found, null, 2))
+    } else{
+        res.send("no books available")
+    };
+});
+
+app.get('/delete', function(req, res){
+    
+});
+
+app.get('/add', function(req, res){
+    
+});
+
 app.listen(3000);
 
 
