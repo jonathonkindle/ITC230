@@ -2,10 +2,6 @@ const express = require('express');
 const app = express();
 const books = require('./books');
 
-console.log(books);
-console.log(books.getAll());
-
-
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/public/home.html');
 });
@@ -18,20 +14,19 @@ app.get('/contact', function(req, res){
     res.sendFile(__dirname + '/public/contact.html');
 });
 
-app.get('/search', function(req, res){
-    res.sendFile(__dirname + '/public/search.html');
+app.get('/get', function(req, res){
+    let found = books.get(req.query.title)
+    if(found){
+        res.send(JSON.stringify(found))
+    } else{
+        res.send("Book not available")
+    };
 });
-
-//still need to update the get and delete calls with correct methods and code
-// app.get('/delete', function(req, res){
-//     res.sendFile(__dirname + );
-// });
 
 app.listen(3000);
 
 
 // the above code performs the same thing as the code below however it uses express to do so
-
 
 // var http = require("http");
 // var fs = require("fs");

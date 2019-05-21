@@ -17,19 +17,47 @@ module.exports = {
         });
     },
 
-    delete: () => {
+    delete: (title) => {
+
+    },
+
+    add: (title) => {
 
     }
-
 
 };
 
 
-// potential solution for finding one item in array
-// var found = books.find(function(book) {
-//     return book.title === 'book';
+
+// $(document).ready(function(){
+//     $(".search-btn").on("click", function(){
+//         $.get(books, function() {
+//             //need to collect the input from input tag to quantify the search and set "all" equal to return all items in the books array.
+//             for (let i = 0; i < books.length; i++) {
+//                     books += '<li>' + '{title:} ' + 'By: ' + '{author:}: ' + '{price:}' +'</li>';
+//             }
+//         });
+//     });
+//     $(".add-btn").on("click", function(){
+
+//     });
+//     $(".delete-btn").on("click", function(){
+
+//     });
+
+//     const bookList = () => {
+//         $.get(books, function() {
+//             var bookData = books;
+//             for (let i = 0; i < bookData.length; i++) {
+//                     bookData += '<li>' + '{title:} ' + 'By: ' + '{author:}: ' + '{price:}' +'</li>';
+//             }
+//         });
+//     };
 // });
-// console.log(found);
+
+// need to use inner html on the <ul> </ul> to populate items into the list on the search.html page.
+
+
 
 
 //ES6 Syntax
@@ -42,12 +70,4 @@ module.exports = {
 //     }
 
 // //ES5 Syntax
-// // function getAll() {
-
-// // }
-
-// module.exports = {
-//     getAll
-// //     someFunction,
-// //     books
-// }
+// // function getAll() {}
