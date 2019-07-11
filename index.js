@@ -32,8 +32,13 @@ app.get('/getAll', function(req, res){
     };
 });
 
-app.get('/delete', function(req, res){
-    
+app.get('/deleteItem', function(req, res){
+    let result = books.deleteItem(req.query.title)
+    if(result.deleted){
+        res.send(req.query.title + " has been deleted")
+    } else{
+        res.send(req.query.title + " not found")
+    };
 });
 
 app.get('/add', function(req, res){

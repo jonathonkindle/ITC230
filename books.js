@@ -17,8 +17,16 @@ module.exports = {
         });
     },
 
-    delete: (title) => {
-
+    deleteItem: (title) => {
+        var a = books.findIndex((item) => {
+            return item.title === title;
+        });
+        if(a == -1) {
+            return {deleted:false, count: books.length}
+        } else {
+            books.splice(a, 1);
+            return {deleted:true, count: books.length}
+        };        
     },
 
     add: (title) => {
