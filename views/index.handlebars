@@ -1,2 +1,16 @@
+{{>header}}
+
 <h2>Hello World!</h2>
 <p>welcome to my app</p>
+
+{{#each contents}}
+    <div>
+        <h3>{{this.title}}</h3>
+        <br>
+        <small>{{this.author}}</small>
+        <br>
+        <p>{{this.price}}</p>
+    </div>
+{{/each}}
+
+{{>footer}}
