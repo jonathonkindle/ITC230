@@ -28,6 +28,36 @@
         var Books = React.createClass({
 
         });
+
+//sample code from class
+        const detail = (props) => {
+            return(
+                <div>
+                    <form>
+                        title: <input name="title" value={props.item.title} /><br/>
+                        author: <input name="author" value={props.item.author} /><br/>
+                        price: <input name="price" value={props.item.price} /><br/>
+                    </form>
+                </div>
+            )
+        },
+
+        onSave() {
+            let newItem = this.state.curItem;
+            if (!newItem.title) {
+                return;
+            }
+
+            fetch("/api/books", {
+                method: "POST",
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify(newItem),
+            }).then(res => res.json())
+        }
+
+
+
+
     </script>
 </body>
 </html>
