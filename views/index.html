@@ -1,0 +1,82 @@
+    <div id="root"></div>
+    
+    <h1>Book list</h1>
+    <div id="book-table">
+        <form>
+            <input type="text" name="book" placeholder="Add new book..." required />
+            <button type="submit">Add a book!</button>
+        </form>
+    </div>
+
+    <script type="text/babel">
+        // define overal app component
+        class BookApp extends React.Component{
+            constructor(props){
+                super(props); // be sure to first instantiate parent class
+                // Set initial state using data from server application
+                this.state = {
+                    items: {{{book}}},
+                };
+            render() {
+                // render app UI elements
+                return (
+                    <div>
+                        <Title title="Book List" />
+                        <div className="book-table">
+                            <ItemList
+                                items={this.state.items} 
+                            />
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        const ItemList = ({items}) => {
+            // return items that match search entry field, or all items if no entry
+            const itemNodes = items.map((item) => {
+                if (!filter || item.title.toLowerCase().includes(filter)) { 
+                    return <li id={item._id} key={item._id} onClick={show}>{item.title}</li>
+                }
+            });
+            return <span id="item-list"><ul>{itemNodes}</ul></span>;
+        }
+
+        ReactDOM.render(<BookApp />, document.getElementById('root'));
+    </script>
+
+    <!-- <script type="text/babel">
+        var Books = React.createClass({
+
+        });
+
+//sample code from class
+        const detail = (props) => {
+            return(
+                <div>
+                    <form>
+                        title: <input name="title" value={props.item.title} /><br/>
+                        author: <input name="author" value={props.item.author} /><br/>
+                        price: <input name="price" value={props.item.price} /><br/>
+                    </form>
+                </div>
+            )
+        },
+
+        onSave() {
+            let newItem = this.state.curItem;
+            if (!newItem.title) {
+                return;
+            }
+
+            fetch("/api/books", {
+                method: "POST",
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify(newItem),
+            }).then(res => res.json())
+        }
+
+
+
+
+    </script> -->

@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const handlebars = require("express-handlebars");
 
 //setup express app
 const app = express();
@@ -9,6 +9,9 @@ app.use(express.static('public'));
 
 //setup up body parser
 app.use(bodyParser.json());
+
+app.engine(".html", handlebars({extname: '.html'}));
+app.set("view engine", ".html");
 
 //initialize routes
 app.use('/api', require('./routes/routes'));

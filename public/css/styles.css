@@ -4,7 +4,7 @@ body{
     color: #989898;
 }
 
-#todo-table{
+#book-table{
     position: relative;
     width: 95%;
     background: #090d13;
@@ -13,7 +13,7 @@ body{
     box-sizing: border-box;
 }
 
-#todo-table form:after{
+#book-table form:after{
     margin: 0;
     content: '';
     display: block;
@@ -63,8 +63,7 @@ li:hover{
     background: rgba(0,0,0,0.2);
 }
 
-h1{
-    background: url(/assets/logo.png) no-repeat center;
+/* h1{
     margin-bottom: 0;
     text-indent: -10000px;
-}
+} */

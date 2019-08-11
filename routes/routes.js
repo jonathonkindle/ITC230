@@ -5,7 +5,7 @@ const Book = require('../models/books');
 //get a list of books from the database
 router.get('/books', (req, res, next) => {
     Book.find().then((book) => {
-        res.send(book);  
+        res.render('index', {book: JSON.stringify(book)});  
     }).catch(next);
 });
 
