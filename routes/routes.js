@@ -32,7 +32,14 @@ router.get('/delete/:title', (req, res, next) => {
     }).catch(next);
 });
 
-
+router.put('/details/:title', (req, res, next) => {
+    Book.findOneAndUpdate({title: req.params.title}, req.body).then(() => {
+        Book.findOne({title: req.params.title}).then((book) => {
+            console.log(book);
+            res.render('details', {book: book}).catch(next);
+        });
+    });
+});
 
 module.exports = router;
 
