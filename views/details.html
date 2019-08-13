@@ -1,0 +1,11 @@
+<h3><a href="/api/books">Home</a></h3>
+{{#if book}}
+    <h2>Details for: {{book.title}}</h2>
+    <li>Author: {{book.author}}</li>
+    <li>Price: {{book.price}}</li>
+    <p>
+    <a href="/api/delete/{{title}}">Delete</a>
+    </p>
+{{else}}
+        <h2>{{title}} not found</h2>
+{{/if}}

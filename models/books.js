@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const connectionString = require('../config/connection');
 
 //connect to mongodb
-mongoose.connect(connectionString, {useNewUrlParser: true});
+mongoose.connect(connectionString, {useNewUrlParser: true, useFindAndModify: false});
 mongoose.Promise = global.Promise;
 
 //create book Schema and model

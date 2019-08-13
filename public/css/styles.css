@@ -21,7 +21,7 @@ body{
 }
 
 input[type="text"]{
-    width: 70%;
+    width: 75%;
     padding: 20px;
     background:#181c22;
     border: 0;
@@ -32,8 +32,8 @@ input[type="text"]{
 
 button{
     padding: 20px;
-    width: 30%;
-    float: left;
+    width: 20%;
+    float: right;
     background: #23282e;
     border: 0;
     box-sizing: border-box;
@@ -42,13 +42,20 @@ button{
     font-size: 20px;
 }
 
-ul{
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+hr{
+    clear: both;
+}
+
+#main-welcome{
+    text-align: center;
+}
+
+h3{
+    text-align: center;
 }
 
 li{
+    list-style-type: none;
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
@@ -58,8 +65,12 @@ li{
     letter-spacing: 1px;
 }
 
+a{
+    color: #fff;
+    text-decoration: none;
+}
+
 li:hover{
-    text-decoration: line-through;
     background: rgba(0,0,0,0.2);
 }
 
