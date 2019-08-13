@@ -1,5 +1,5 @@
 <h3><a href="/api/books">Home</a></h3>
-<form id="details-table" method="POST" action="/api/details/:{{title}}">
+<form id="details-table">
     {{#if book}}
         <h2 id="details-header">Details for: {{book.title}}</h2>
         <li>Author: {{book.author}}</li>
@@ -9,7 +9,7 @@
         <input id="update-author-input" type="text" name="author" placeholder="Add or change the Author:">
         <input id="update-price-input" type="text" name="price" placeholder="Add or change the Price:">
         <br>
-        <button id="update-button" type="submit">Update</button>
+        <button id="update-button"><a href="/api/update/{{title}}">Update</a></button>
         <button id="delete-button"><a href="/api/delete/{{title}}">Delete</a></button>
         </p>
     {{else}}
