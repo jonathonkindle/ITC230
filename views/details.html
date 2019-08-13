@@ -1,11 +1,18 @@
 <h3><a href="/api/books">Home</a></h3>
-{{#if book}}
-    <h2>Details for: {{book.title}}</h2>
-    <li>Author: {{book.author}}</li>
-    <li>Price: {{book.price}}</li>
-    <p>
-    <a href="/api/delete/{{title}}">Delete</a>
-    </p>
-{{else}}
-        <h2>{{title}} not found</h2>
-{{/if}}
+<form id="details-table" method="POST" action="/api/details">
+    {{#if book}}
+        <h2 id="details-header">Details for: {{book.title}}</h2>
+        <li>Author: {{book.author}}</li>
+        <li>Price: {{book.price}}</li>
+        <p>
+        
+        <input id="update-author-input" type="text" name="Author" placeholder="Add or change the Author:">
+        <input id="update-price-input" type="text" name="Price" placeholder="Add or change the Price:">
+        <br>
+        <!-- <button id="update-button"><a href="/api/update/{{title}}">Update</a></button> -->
+        <button id="delete-button"><a href="/api/delete/{{title}}">Delete</a></button>
+        </p>
+    {{else}}
+            <h2>{{title}} not found</h2>
+    {{/if}}
+</form>

@@ -20,7 +20,18 @@ body{
     clear: both;
 }
 
-input[type="text"]{
+#details-table{
+    position: relative;
+    width: 95%;
+    background: #090d13;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+
+#add-book-input[type="text"], #search-book-input[type="text"]{
     width: 75%;
     padding: 20px;
     background:#181c22;
@@ -30,7 +41,30 @@ input[type="text"]{
     color: #989898;
 }
 
-button{
+#update-author-input[type="text"], #update-price-input[type="text"]{
+    display: block;
+    width: 30%;
+    padding: 20px;
+    margin: 5px;
+    background:#181c22;
+    border: 0;
+    font-size: 20px;
+    color: #989898;
+}
+
+#delete-button, #update-button{
+    padding: 10px;
+    margin: 5px;
+    width: 10%;
+    background: #23282e;
+    border: 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#add-book-btn, #search-book-btn{
     padding: 20px;
     width: 20%;
     float: right;
@@ -46,7 +80,7 @@ hr{
     clear: both;
 }
 
-#main-welcome{
+#main-welcome, #details-header{
     text-align: center;
 }
 
@@ -74,6 +108,12 @@ li:hover{
     background: rgba(0,0,0,0.2);
 }
 
+#details-table form:after{
+    margin: 0;
+    content: '';
+    display: block;
+    clear: both;
+}
 /* h1{
     margin-bottom: 0;
     text-indent: -10000px;

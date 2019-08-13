@@ -9,15 +9,6 @@ router.get('/books', (req, res, next) => {
     });
 });
 
-// router.post('/details', (req, res, next) => {
-//     Book.updateOne({'title':req.body.title}, req.body, {upsert:true}, (err, result) => {
-//             if (err) return next(err);
-//             return(result);
-//         }).then((book) => {
-//             res.render('details', {book: book, title: req.body.title});
-//     }).catch(next);
-// });
-
 // get one book from the db and render the details page
 router.get('/details/:title', (req,res, next) => {
     Book.findOne({title: req.params.title}).then((book) => {
@@ -25,11 +16,23 @@ router.get('/details/:title', (req,res, next) => {
     }).catch(next);
 });
 
+// add a book to the database and re-render the index page list
+router.post('/books', (req, res, next) => {
+    Book.updateOne({title :req.body.title}, req.body, {upsert:true}).then(() => {
+        Book.find().then((books) => {
+            res.render('index', {books: books});  
+        });
+    }).catch(next);
+});
+
+// delete a book from the database and send the delete page
 router.get('/delete/:title', (req, res, next) => {
     Book.findOneAndRemove({title: req.params.title}).then((book) => {
         res.render('delete', {book: book});
     }).catch(next);
 });
+
+
 
 module.exports = router;
 
