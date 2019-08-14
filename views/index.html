@@ -1,6 +1,6 @@
     <!-- this section for assignment 3 -->
     <h2 id="main-welcome">Welcome to my Book Collection!</h2>
-    <form id="book-table" method="POST" action="/api/books">
+    <form id="book-table" method="POST" action="/books">
         <!-- <input id="search-book-input" type="text" name="title" placeholder="Title">
         <button id="search-book-btn" type="submit">Search</button>
         <hr color="black"> -->
@@ -10,6 +10,6 @@
         <h3>Books</h3>
         <hr>
         {{#each books}}
-            <li><a href="/api/details/{{title}}">{{title}}</a></li>
+            <li><a href="/details/{{title}}">{{title}}</a></li>
         {{/each}}
     </form>

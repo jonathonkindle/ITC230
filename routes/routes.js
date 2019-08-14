@@ -18,6 +18,7 @@ router.get('/details/:title', (req,res, next) => {
 
 // add a book to the database and re-render the index page list
 router.post('/books', (req, res, next) => {
+    console.log(req.body);
     Book.updateOne({title :req.body.title}, req.body, {upsert:true}).then(() => {
         Book.find().then((books) => {
             res.render('index', {books: books});  
@@ -30,12 +31,6 @@ router.get('/delete/:title', (req, res, next) => {
     Book.findOneAndRemove({title: req.params.title}).then((book) => {
         res.render('delete', {book: book});
     }).catch(next);
-});
-
-router.put('/details/:title', (req, res, next) => {
-    Book.findOneAndUpdate({title: req.params.title}, req.body, {new:true}).then((book) => {
-            res.render('update', {book: book});
-    });
 });
 
 module.exports = router;
