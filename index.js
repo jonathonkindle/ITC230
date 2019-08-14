@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //initialize routes
 // app.use('/api', require('./routes/routes'));
-app.use('/', require('./routes/routes'));
+app.use('/', require('./routes/routes', 'cors'));
 
 //error handling middleware
 app.use((err, req, res, next) => {

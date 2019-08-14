@@ -8,6 +8,13 @@ router.get('/books', (req, res, next) => {
         res.render('index', {books: books});  
     });
 });
+// api route for getting all books from database
+router.get('/api/books', (req, res, next) => {
+    Book.find().then((books) => {
+        res.json(books);  
+    });
+});
+
 
 // get one book from the db and render the details page
 router.get('/details/:title', (req,res, next) => {
@@ -15,6 +22,13 @@ router.get('/details/:title', (req,res, next) => {
         res.render('details', {book: book, title: req.params.title});
     }).catch(next);
 });
+// api route for getting a single book from database
+router.get('/api/details/:title', (req,res, next) => {
+    Book.findOne({title: req.params.title}).then((book) => {
+        res.json(book);
+    }).catch(next);
+});
+
 
 // add a book to the database and re-render the index page list
 router.post('/books', (req, res, next) => {
@@ -25,6 +39,14 @@ router.post('/books', (req, res, next) => {
         });
     }).catch(next);
 });
+// api route for adding books
+router.post('/api/add', (req, res, next) => {
+    console.log(req.body);
+    Book.updateOne({title :req.body.title}, req.body, {upsert:true}).then((result) => {
+        res.json(result);  
+    }).catch(next);
+});
+
 
 // delete a book from the database and send the delete page
 router.get('/delete/:title', (req, res, next) => {
@@ -32,15 +54,16 @@ router.get('/delete/:title', (req, res, next) => {
         res.render('delete', {book: book});
     }).catch(next);
 });
+// api route for deleting a book from the database
+router.get('/api/delete/:title', (req, res, next) => {
+    Book.findOneAndRemove({title: req.params.title}).then((book) => {
+        res.json(book);
+    }).catch(next);
+});
+
 
 module.exports = router;
 
-//this is for the react component
-// router.get('/books:title/details', (req, res) => {
-//     Book.findById(req.params.title).then((book) => {
-//         res.json(book);
-//     });
-// });
 
 //add a new book to the database
 // router.post('/books', (req, res, next) => {
@@ -52,18 +75,4 @@ module.exports = router;
     // Book.create(req.body).then((book) => {
     //     res.send(book);
     // }).catch(next);
-// });
-
-//update a book in the database
-// router.put('/books/:title', (req, res, next) => {
-//     Book.findOneAndUpdate({title: req.params.title}, req.body, {new: true}).then((book) => {
-//         res.send(book);
-//     }).catch(next);
-// });
-
-//delete a book from the database
-// router.get('/delete/:title', (req,res) => {
-//     let title = req.params.title;
-//     let result = Book.findOneAndDelete(title); // delete book object
-//     res.render('delete', {title: title, result: result});
 // });
