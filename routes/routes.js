@@ -55,8 +55,8 @@ router.get('/delete/:title', (req, res, next) => {
     }).catch(next);
 });
 // api route for deleting a book from the database
-router.get('/api/delete/:title', (req, res, next) => {
-    Book.findOneAndRemove({title: req.params.title}).then((book) => {
+router.delete('/api/delete', (req, res, next) => {
+    Book.findOneAndRemove({title: req.body.title}).then((book) => {
         res.json(book);
     }).catch(next);
 });
