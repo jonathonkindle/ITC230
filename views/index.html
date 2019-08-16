@@ -1,9 +1,65 @@
-    <!-- this section for assignment 3 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="/css/styles.css" rel="stylesheet" type="text/css"/>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <title></title>
+
+</head>
+<body>
     <h2 id="main-welcome">Welcome to my Book Collection!</h2>
-    <form id="book-table" method="POST" action="/books">
-        <!-- <input id="search-book-input" type="text" name="title" placeholder="Title">
+    <div id="root"/>
+    <script type="text/babel">
+        const greeting = <h1>Hello, world</h1>; 
+    const Title = ({title}) => {
+      // simple component w/ single property
+      return <div><h2>{title}</h2></div>;
+    }
+    
+    const ItemList = ({items, filter, show}) => {
+      // generate array of item nodes
+      const itemNodes = items.map((item) => {
+          return <li id={item._id} key={item._id} onClick={show}>{item.title}</li>
+      });
+      return <ul>{itemNodes}</ul>;
+    }
+    
+    class MyApp extends React.Component {
+      constructor(props){
+        super(props);
+        // data from server 
+        this.state = {
+          items: [{"_id":"5920774cf36d283b70a7c9f9","title":"Harry Potter","author":"jk rowling","amount":5,"pubdate":"1993-02-12T00:00:00.000Z"}]
+        };
+      }
+      
+      render() {
+        return (
+          <div>
+          <Title title="My Stuff" />
+          <ItemList items={this.state.items}/>
+          </div>
+        );
+      }
+          
+    }
+    
+    ReactDOM.render(<MyApp />, document.getElementById('root'));
+    </script>
+</body>
+</html>
+
+    <!-- this section for assignment 3 and 5-->
+    <!-- <h2 id="main-welcome">Welcome to my Book Collection!</h2> -->
+    <!-- <form id="book-table" method="POST" action="/books">
+        <input id="search-book-input" type="text" name="title" placeholder="Title">
         <button id="search-book-btn" type="submit">Search</button>
-        <hr color="black"> -->
+        <hr color="black">
         <input id="add-book-input" type="text" name="title" placeholder="Title">
         <button id="add-book-btn" type="submit">Add a book!</button>
         <hr>
@@ -12,4 +68,4 @@
         {{#each books}}
             <li><a href="/details/{{title}}">{{title}}</a></li>
         {{/each}}
-    </form>
+    </form> -->

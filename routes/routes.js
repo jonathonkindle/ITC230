@@ -11,6 +11,7 @@ router.get('/books', (req, res, next) => {
 // api route for getting all books from database
 router.get('/api/books', (req, res, next) => {
     Book.find().then((books) => {
+        // res.json(books);
         res.json(books);  
     });
 });
