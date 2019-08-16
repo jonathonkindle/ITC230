@@ -2,6 +2,15 @@ const express = require('express');
 const router = express.Router();
 const Book = require('../models/books');
 
+
+// router.get('/', (req,res, next) => {
+//     Book.find((err,books) => {
+//         if (err) return next(err);
+//         res.render('index', {books: JSON.stringify(books)});    
+//     });
+// });
+
+
 //get a list of books from the database
 router.get('/books', (req, res, next) => {
     Book.find().then((books) => {
