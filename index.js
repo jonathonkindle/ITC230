@@ -24,6 +24,7 @@ app.use((err, req, res, next) => {
     res.status(422).send({error: err.message});
 })
 
+
 //listen for requests
 app.listen(process.env.port || 3000, () => {
     console.log('Now lisenting for requests');
