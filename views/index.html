@@ -12,8 +12,25 @@
 
 </head>
 <body>
+     <!-- this section for assignment 3 and 5-->
     <h2 id="main-welcome">Welcome to my Book Collection!</h2>
-    <div id="root"/>
+    <form id="book-table" method="POST" action="/books">
+        <input id="search-book-input" type="text" name="title" placeholder="Title">
+        <button id="search-book-btn" type="submit">Search</button>
+        <hr color="black">
+        <input id="add-book-input" type="text" name="title" placeholder="Title">
+        <button id="add-book-btn" type="submit">Add a book!</button>
+        <hr>
+        <h3>Books</h3>
+        <hr>
+        {{#each books}}
+            <li><a href="/details/{{title}}">{{title}}</a></li>
+        {{/each}}
+    </form>
+</body>
+</html>
+<!-- <h2 id="main-welcome">Welcome to my Book Collection!</h2> -->
+    <!-- <div id="root"/>
     <script type="text/babel">
         const greeting = <h1>Hello, world</h1>; 
     const Title = ({title}) => {
@@ -50,22 +67,4 @@
     }
     
     ReactDOM.render(<MyApp />, document.getElementById('root'));
-    </script>
-</body>
-</html>
-
-    <!-- this section for assignment 3 and 5-->
-    <!-- <h2 id="main-welcome">Welcome to my Book Collection!</h2> -->
-    <!-- <form id="book-table" method="POST" action="/books">
-        <input id="search-book-input" type="text" name="title" placeholder="Title">
-        <button id="search-book-btn" type="submit">Search</button>
-        <hr color="black">
-        <input id="add-book-input" type="text" name="title" placeholder="Title">
-        <button id="add-book-btn" type="submit">Add a book!</button>
-        <hr>
-        <h3>Books</h3>
-        <hr>
-        {{#each books}}
-            <li><a href="/details/{{title}}">{{title}}</a></li>
-        {{/each}}
-    </form> -->
+    </script> -->
