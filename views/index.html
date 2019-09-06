@@ -1,92 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <link href="/css/styles.css" rel="stylesheet" type="text/css"/> -->
-    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
-    <title></title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <!-- <link href="/css/styles.css" rel="stylesheet" type="text/css"/> -->
+        <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+        <title></title>
 
-</head>
-<body>
-     <!-- this section for assignment 3 and 5-->
-  <div id="root"></div>
+    </head>
+    <body>
+        <div id="root"></div>
 
-  <script type="text/babel">
-    class BookList extends React.Component {
-      constructor() {
-        super()
-        this.state = {
-          greeting: "hello world",
-          heading: "this is a test"
-        }
-      }
-      
-      render() {
-        return (
-          <div>
-            <h2 id="main-welcome">Welcome to my Book Collection!</h2>
-            <form id="book-table" method="POST" action="/books">
-              <input id="add-book-input" type="text" name="title" placeholder="Title" />
-              <button id="add-book-btn" type="submit">Add a book!</button>
-              <hr />
-              <h3>Books</h3>
-              <hr />
-              {{#each books}}
-                <li><a href="/details/{{title}}">{{title}}</a></li>
-              {{/each}}
-            </form>
-          </div>
-        )
-      }
-    }
-    
-    ReactDOM.render(
-      <BookList />,
-      document.getElementById("root")
-    )
-  </script>
-</body>
+        <script type="text/babel">
+            class BookApp extends React.Component{
+                constructor(props){
+                    super(props);
+                    this.state = {
+                        items: {{{books}}},
+                        filter: "",
+                        curItem: {}
+                    };
+                    this.onSearch = this.onSearch.bind(this);
+                    this.showDetails = this.showDetails.bind(this);
+                    this.onClear = this.onClear.bind(this);
+                    this.onChange = this.onChange.bind(this);
+                    this.onSave = this.onSave.bind(this);
+                    this.onDelete = this.onDelete.bind(this);
+                }
+
+                onSearch(event) {
+                    // set search term. react will handle component updates 
+                    this.setState({filter: event.target.value.toLowerCase() });
+                }
+
+                showDetails(event) {
+                    // event.target is item clicked. Assumes each item has an id attribute
+                    let editItem = this.state.items.find((item) => {
+                    return item._id == event.target.id;
+                    });
+                    this.setState({curItem: editItem});
+                }
+
+                onClear() {
+                    this.setState({curItem: {}});
+                }
+                // handle detail changes
+                onChange(event) {
+                    var newItem = this.state.curItem;
+                    newItem[event.target.name] = event.target.value
+                    this.setState({curItem: newItem});
+                }
+                // Handle item save
+                onSave() {
+                    let newItem = this.state.curItem;
+                    if (!newItem.title) {
+                        return;
+                    }
+                    fetch("/api/add/", {
+                        method: "POST",
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newItem)
+                    }).then(res => res.json())
+                        .then((json) => {
+                            let newData;
+                            if (!newItem._id) { // add new item to array
+                                newData = this.state.items;
+                                newItem._id = json._id;
+                                newData.push(newItem);
+                            } else { // update existing item 
+                                newData = this.state.items.map((item) => {
+                                    if (item._id === newItem._id) {
+                                        item = newItem; 
+                                    }
+                                return item;
+                                });          
+                            }
+
+                        // Update state with new array
+                        this.setState({items: newData});
+                        });
+                    }   
+
+                // Handle item delete
+                onDelete() {
+                    let id = this.state.curItem._id;
+                    
+                    fetch("/api/delete/" + id).then((response) => {
+                    return response.json();
+                    }).then((results) => {
+                    // Filter all items except the one to be removed
+                    const remainder = this.state.items.filter((item) => {
+                        return item._id !== id;
+                    });
+                    // Update state with new array & clear current item
+                    this.setState({items: remainder, curItem: {}});
+                    });
+                }
+
+                render() {
+                    // render app UI elements
+                    return (
+                    <div>
+                    <Title title="Book Store" />
+                    <SearchForm filter={this.state.filter} change={this.onSearch} />
+                    <div className="flex-container">
+                        <ItemList
+                            items={this.state.items} 
+                            filter={this.state.filter}
+                            show={this.showDetails}
+                        />
+                        <ItemDetails item={this.state.curItem} change={this.onChange} save={this.onSave} reset={this.onClear} delete={this.onDelete} />
+                        </div>
+                    </div>
+                    );
+                }
+            }
+
+            // UI elements
+            const Title = ({title}) => {
+                return (
+                    <div><h2>{title}</h2></div>
+                );
+            }
+            const SearchForm = (props) => {
+                return (
+                <div>
+                    <input
+                    type="text" placeholder="Enter a search term"
+                    value={props.filter}
+                    onChange={props.change}
+                    /><p/>
+                </div>
+                );
+            }
+            const ItemList = ({items, filter, show}) => {
+                // return items that match search entry field, or all items if no entry
+                const itemNodes = items.map((item) => {
+                    if (!filter || item.title.toLowerCase().includes(filter)) { 
+                        return <li id={item._id} key={item._id} onClick={show}>{item.title}</li>
+                    }
+                });
+                return <span id="item-list"><ul>{itemNodes}</ul></span>;
+            }
+
+            const ItemDetails = (props) => {
+                return (
+                <span id="item-details">
+                    <h3>Details:</h3>
+                    <form>
+                    <input type="text" name="title" placeholder="title" onChange={props.change} value={props.item.title || ""} /><p/>
+                    <input type="text" name="author" placeholder="author"  onChange={props.change} value={props.item.author || ""} /><p/>
+                    <input type="date" name="pubdate" placeholder="pub. date" onChange={props.change} value={getISOstring(props.item.pubdate)} />
+                    <p/>
+                    </form>
+                    <button onClick={props.save}>Save</button>  <button onClick={props.reset}>Reset</button> <button onClick={props.delete}>Delete</button>
+                </span>
+                );
+            }
+
+        ReactDOM.render(<BookApp />, document.getElementById('root'));
+        </script>
+    </body>
 </html>
-<!-- <h2 id="main-welcome">Welcome to my Book Collection!</h2> -->
-    <!-- <div id="root"/>
-    <script type="text/babel">
-        const greeting = <h1>Hello, world</h1>; 
-    const Title = ({title}) => {
-      // simple component w/ single property
-      return <div><h2>{title}</h2></div>;
-    }
-    
-    const ItemList = ({items, filter, show}) => {
-      // generate array of item nodes
-      const itemNodes = items.map((item) => {
-          return <li id={item._id} key={item._id} onClick={show}>{item.title}</li>
-      });
-      return <ul>{itemNodes}</ul>;
-    }
-    
-    class MyApp extends React.Component {
-      constructor(props){
-        super(props);
-        // data from server 
-        this.state = {
-          items: [{"_id":"5920774cf36d283b70a7c9f9","title":"Harry Potter","author":"jk rowling","amount":5,"pubdate":"1993-02-12T00:00:00.000Z"}]
-        };
-      }
-      
-      render() {
-        return (
-          <div>
-          <Title title="My Stuff" />
-          <ItemList items={this.state.items}/>
-          </div>
-        );
-      }
-          
-    }
-    
-    ReactDOM.render(<MyApp />, document.getElementById('root'));
-    </script> -->
